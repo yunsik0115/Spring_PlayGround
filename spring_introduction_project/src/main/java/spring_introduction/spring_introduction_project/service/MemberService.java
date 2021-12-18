@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 //순수한 자바 코드라 스프링 컨테이너에 등록되어있지 않음
-@Service //를 통한 등록 필요
+//@Service //를 통한 등록 필요
 public class MemberService {
     // ctrl shift t -> Test Code Generation
     // private final MemberRepository memberRepository = new MemoryMemberRepository();

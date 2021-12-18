@@ -5,7 +5,7 @@ import spring_introduction.spring_introduction_project.domain.Member;
 
 import java.util.*;
 
-@Repository
+//@Repository
 public class MemoryMemberRepository implements MemberRepository {
     private static Map<Long, Member> store = new HashMap<>();
     // 저장 공간 생성

@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-@Controller // 컨트롤러는 위에 어노테이션이 꼭 필요하다.
+//@Controller // 컨트롤러는 위에 어노테이션이 꼭 필요하다.
 public class HelloController {
     @GetMapping("hello")
     public String hello(Model model) {

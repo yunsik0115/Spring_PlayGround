@@ -1,4 +1,4 @@
-package repository;
+package spring_introduction.spring_introduction_project.repository;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;

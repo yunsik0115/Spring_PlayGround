@@ -8,7 +8,15 @@ import java.util.List;
 import java.util.Optional;
 
 public class MemberService {
-    private final MemberRepository memberRepository = new MemoryMemberRepository();
+    // ctrl shift t -> Test Code Generation
+    // private final MemberRepository memberRepository = new MemoryMemberRepository();
+
+    // 동일 repository(test에서도) 사용하기 위해 다음과 같이 코드 작성
+
+    private final MemberRepository memberRepository; // final -> 전체 코드에서 한번만 할당
+    public MemberService(MemberRepository memberRepository){
+        this.memberRepository = memberRepository;
+    } // 생성자
 
     //회원가입
     public Long join(Member member){

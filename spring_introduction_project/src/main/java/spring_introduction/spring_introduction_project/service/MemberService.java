@@ -19,7 +19,7 @@ public class MemberService {
 
     private final MemberRepository memberRepository; // final -> 전체 코드에서 한번만 할당
 
-    @Autowired // Dependency Injection by Spring Beans
+    @Autowired // Dependency Injection by Spring Beans 생성자 주입 -> 권장, 필드주입-> 비추, setter 주입 -> 비추
     public MemberService(MemberRepository memberRepository){
         this.memberRepository = memberRepository;
     } // 생성자

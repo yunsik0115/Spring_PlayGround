@@ -1,5 +1,7 @@
 package spring_introduction.spring_introduction_project.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import spring_introduction.spring_introduction_project.domain.Member;
 import spring_introduction.spring_introduction_project.repository.MemberRepository;
 import spring_introduction.spring_introduction_project.repository.MemoryMemberRepository;
@@ -7,6 +9,8 @@ import spring_introduction.spring_introduction_project.repository.MemoryMemberRe
 import java.util.List;
 import java.util.Optional;
 
+//순수한 자바 코드라 스프링 컨테이너에 등록되어있지 않음
+@Service //를 통한 등록 필요
 public class MemberService {
     // ctrl shift t -> Test Code Generation
     // private final MemberRepository memberRepository = new MemoryMemberRepository();
@@ -14,6 +18,8 @@ public class MemberService {
     // 동일 repository(test에서도) 사용하기 위해 다음과 같이 코드 작성
 
     private final MemberRepository memberRepository; // final -> 전체 코드에서 한번만 할당
+
+    @Autowired // Dependency Injection by Spring Beans
     public MemberService(MemberRepository memberRepository){
         this.memberRepository = memberRepository;
     } // 생성자

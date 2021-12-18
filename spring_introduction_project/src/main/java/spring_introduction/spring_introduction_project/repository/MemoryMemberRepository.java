@@ -1,9 +1,11 @@
 package spring_introduction.spring_introduction_project.repository;
 
+import org.springframework.stereotype.Repository;
 import spring_introduction.spring_introduction_project.domain.Member;
 
 import java.util.*;
 
+@Repository
 public class MemoryMemberRepository implements MemberRepository {
     private static Map<Long, Member> store = new HashMap<>();
     // 저장 공간 생성

@@ -3,36 +3,41 @@ package spring_introduction.spring_introduction_project;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import spring_introduction.spring_introduction_project.aop.TimeTraceAop;
 import spring_introduction.spring_introduction_project.repository.*;
 import spring_introduction.spring_introduction_project.service.MemberService;
-
-import javax.persistence.EntityManager;
-import javax.sql.DataSource;
 
 @Configuration
 public class SpringConfig {
 
     //Datasource Injection
-    private DataSource dataSource;
+    //private DataSource dataSource;
 
-    private EntityManager em;
+    //private EntityManager em;
 
+    private final MemberRepository memberRepository;
 
-    @Autowired
+    @Autowired // SpringDataJpaMemberRepository가 구현체 생성.
+    public SpringConfig(MemberRepository memberRepository){
+        this.memberRepository = memberRepository; // Injection
+    }
+
+    /*@Autowired
     public SpringConfig(DataSource dataSource, EntityManager em){
         this.dataSource = dataSource;
         this.em = em;
-    }
+    }*/
 
     @Bean
     public MemberService memberService(){
-        return new MemberService(memberRepository());
+        return new MemberService(memberRepository);
     }
 
-    @Bean
+
+    /*@Bean
     public MemberRepository memberRepository() {
-        return new JpaMemberRepository(em);
-    }
+
+    }*/
 
     /*
     * 지금은 SpringConfig에서 dataSource를 받아서 JdbcTemplateMemberRepository에 직접 주입하고 있습니다.

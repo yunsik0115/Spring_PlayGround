@@ -41,7 +41,7 @@ public class OrderServiceImpl implements OrderService{ // 주문 생성 요청�
         this.memberRepository = memberRepository;
         this.discountPolicy = discountPolicy;
     }
-    // 어떤 Policy가 들어올지 신경 쓰지 않는다.
+    // 어떤 Policy가 들어올지 신경 쓰지 않는다. OCP 만족 DIP도 만족
 
     @Override
     public Order createOrder(Long memberId, String itemName, int itemPrice) {

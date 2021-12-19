@@ -12,8 +12,12 @@ import java.util.Arrays;
 
 public class OrderApp {
     public static void main(String[] args) {
-        MemberService memberService = new MemberServiceImpl();
-        OrderService orderService = new OrderServiceImpl();
+        AppConfig appConfig = new AppConfig(); // DI, OCP 준수를 위한 의존관계 재설정
+        MemberService memberService = appConfig.memberService();
+        OrderService orderService = appConfig.orderService();
+        // 이전
+        // MemberService memberService = new MemberService();
+        // OrderService orderService = new OrderService();
 
         Long memberId = 1L;
         Member member = new Member(memberId, "MemberA", Grade.VIP);

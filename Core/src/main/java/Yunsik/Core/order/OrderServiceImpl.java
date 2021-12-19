@@ -7,8 +7,8 @@ import Yunsik.Core.member.MemoryMemberRepository;
 
 public class OrderServiceImpl implements OrderService{ // 주문 생성 요청시
 
-    private final MemberRepository memberRepository = new MemoryMemberRepository();
-    private DiscountPolicy discountPolicy; // 인터페이스에만 의존하도록 설계를 변경함. 이전의 문제는 하단 주석을 참고
+    private final MemberRepository memberRepository; // = new MemoryMemberRepository();
+    private final DiscountPolicy discountPolicy; // 인터페이스에만 의존하도록 설계를 변경함. 이전의 문제는 하단 주석을 참고
     // 근데 이렇게만 작성하면 NULLPOINTEXCEPTION 어떻게 DIP를 지킬 수 있을까?
     // 누군가 클라이언트인 OrderServiceImpl에 DiscountPolicy의 구현 객체를 대신 생성하고 주입해주어야 한다
 
@@ -36,6 +36,12 @@ public class OrderServiceImpl implements OrderService{ // 주문 생성 요청�
         해결 방법
         클라이언트 코드 MemberServiceImpl은 DiscountPolicy의 Interface와 구체 클래스 모두 의존하고 있다. 따라서 의존 관계 변경이 필요하다.
      */
+
+    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
+        this.memberRepository = memberRepository;
+        this.discountPolicy = discountPolicy;
+    }
+    // 어떤 Policy가 들어올지 신경 쓰지 않는다.
 
     @Override
     public Order createOrder(Long memberId, String itemName, int itemPrice) {

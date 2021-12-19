@@ -10,7 +10,10 @@ import java.util.Arrays;
 public class MemberApp {
 
     public static void main(String[] args) { // TEST by 순수 자바 코드
-        MemberService memberService = new MemberServiceImpl();
+        AppConfig appConfig = new AppConfig(); // DI, OCP 준수를 위해 의존관계를 재설정했다.
+        MemberService memberService = appConfig.memberService();
+        // 이전
+        // MemberService memberService = new MemberService();
         Member memberA = new Member(1L, "memberA", Grade.VIP);
         memberService.join(memberA);
 

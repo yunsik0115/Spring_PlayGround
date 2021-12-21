@@ -14,6 +14,14 @@ import org.springframework.context.annotation.Configuration;
 @Configuration // Spring을 이용한다
 public class AppConfig { // 이를 통해 구성 영역인 Appconfig만 바뀌고 나머지 사용 영역에는 영향이 없게 된다.
     // 생성된 객체 인스턴스의 참조를 생성자를 통해서 주입해준다.
+
+    /*
+    다음 코드는 XML에서 아래 두 memberService와 MemberRepository를 작성하는 것과 같다.
+    <bean id="memberService" class="Yunsik.Core.member.MemberServiceImpl">
+        <constructor-arg name="memberRepository" ref="memberRepository"></constructor-arg>
+    </bean>
+    <bean id="memberRepository" class="Yunsik.Core.member.MemoryMemberRepository"></bean>
+     */
     @Bean
     public MemberService memberService(){
         return new MemberServiceImpl(MemberRepository()); // 역할이 잘 드러나도록 Ctrl + Alt + M

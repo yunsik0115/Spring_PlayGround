@@ -23,7 +23,7 @@ public class ApplicationContextBasicFindTest {
         // 이름, 클래스 형태 로 조회
         assertThat(memberService).isInstanceOf(MemberServiceImpl.class); // 검증
     }
-     // 인터페이스로 조회, 인터페이스의 구현체가 대상이 된다.
+     // 인터페이스로 조회 -> 인터페이스의 구현체가 대상이 된다.
     @Test
     @DisplayName("빈 이름없이 타입으로만만 조회")
     void findBeanByType() {

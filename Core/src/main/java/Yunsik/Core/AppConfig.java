@@ -22,7 +22,7 @@ public class AppConfig { // 이를 통해 구성 영역인 Appconfig만 바뀌�
     </bean>
     <bean id="memberRepository" class="Yunsik.Core.member.MemoryMemberRepository"></bean>
      */
-    @Bean
+    @Bean // 팩토리 메서드에 의한 추가
     public MemberService memberService(){
         return new MemberServiceImpl(MemberRepository()); // 역할이 잘 드러나도록 Ctrl + Alt + M
     }

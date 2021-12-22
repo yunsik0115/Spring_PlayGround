@@ -1,10 +1,12 @@
 package Yunsik.Core.singleton;
 
 import Yunsik.Core.AppConfig;
+import Yunsik.Core.member.Member;
 import Yunsik.Core.member.MemberService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class SingletonTest {
     @Test
@@ -48,5 +50,24 @@ public class SingletonTest {
         // same -> 자바 == 비교
         // equal -> java의 equals 메서드와 같다고 생각하자
 
+    }
+
+    @Test
+    @DisplayName("스프링 컨테이너와 싱글톤")
+    void springContainer(){
+
+        AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(AppConfig.class);
+
+        //1. 조회 호출시마다 객체 생성
+        MemberService memberService1 = ac.getBean("memberService", MemberService.class);
+        //2. 조회 호출시마다 객체 생성
+        MemberService memberService2 = ac.getBean("memberService", MemberService.class);
+
+        // 참조값이 다른것을 알 수 있다. -> 계속 객체를 생성하는 것은 효율적이지 않다
+        System.out.println("memberService1 = " + memberService1);
+        System.out.println("memberService2 = " + memberService2);
+
+        // memberService1 is same as memberService2
+        Assertions.assertThat(memberService1).isSameAs(memberService2);
     }
 }

@@ -5,7 +5,7 @@ import Yunsik.Core.member.Member;
 
 public class FixedDiscountPolicy implements DiscountPolicy {
 
-    private int discountFixAmount = 1000;
+    private final int discountFixAmount = 1000;
 
     @Override
     public int discount(Member member, int price) {

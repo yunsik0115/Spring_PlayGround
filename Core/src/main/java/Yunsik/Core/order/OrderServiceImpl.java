@@ -50,4 +50,9 @@ public class OrderServiceImpl implements OrderService{ // 주문 생성 요청�
         // 좋은 설계 : OrderService 입장에서 할인에 대한 내용을 모름, DiscountPolicy가 모든 책임 진다. - 단일 책임 원칙을 잘 지켰다 -
         return new Order(memberId, itemName, itemPrice, discountPrice);
     }
+
+    // for test
+    public MemberRepository getMemberRepository() {
+        return memberRepository;
+    }
 }

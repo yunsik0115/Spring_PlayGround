@@ -1,5 +1,8 @@
 package Yunsik.Core;
 
+import Yunsik.Core.member.MemberRepository;
+import Yunsik.Core.member.MemoryMemberRepository;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
@@ -12,5 +15,8 @@ import org.springframework.context.annotation.FilterType;
                 // 예제 코드를 삭제하지 않기 위해 제외함.
         )
 public class AutoAppConfig {
-
+        /* @Bean(name = "memoryMemberRepository") // 자동 VS 수동 빈 등록 - 수동 등록 빈이 우선권을 갖는다.
+        MemberRepository memberRepository(){
+                return new MemoryMemberRepository();
+        } */
 }

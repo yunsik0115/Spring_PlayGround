@@ -5,6 +5,8 @@ import Yunsik.Core.member.Grade;
 import Yunsik.Core.member.Member;
 import Yunsik.Core.member.MemberService;
 import Yunsik.Core.member.MemberServiceImpl;
+import Yunsik.Core.order.Order;
+import Yunsik.Core.order.OrderService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

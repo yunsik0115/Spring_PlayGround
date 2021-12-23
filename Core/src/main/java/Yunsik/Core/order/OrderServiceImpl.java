@@ -4,7 +4,10 @@ import Yunsik.Core.discount.DiscountPolicy;
 import Yunsik.Core.member.Member;
 import Yunsik.Core.member.MemberRepository;
 import Yunsik.Core.member.MemoryMemberRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class OrderServiceImpl implements OrderService{ // 주문 생성 요청시
 
     private final MemberRepository memberRepository; // = new MemoryMemberRepository();
@@ -37,6 +40,7 @@ public class OrderServiceImpl implements OrderService{ // 주문 생성 요청�
         클라이언트 코드 MemberServiceImpl은 DiscountPolicy의 Interface와 구체 클래스 모두 의존하고 있다. 따라서 의존 관계 변경이 필요하다.
      */
 
+    @Autowired
     public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
         this.memberRepository = memberRepository;
         this.discountPolicy = discountPolicy;

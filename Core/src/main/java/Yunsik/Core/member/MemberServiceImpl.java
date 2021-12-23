@@ -1,5 +1,9 @@
 package Yunsik.Core.member;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Component
 public class MemberServiceImpl implements MemberService{
 
     // private final MemberRepository memberRepository = new MemoryMemberRepository();
@@ -9,6 +13,11 @@ public class MemberServiceImpl implements MemberService{
 
     private final MemberRepository memberRepository;
 
+
+
+    @Autowired // @Component로 Spring Bean에 등록만 함, 근데 그러면 의존관계 주입은 어떻게?
+                // => 자동 의존관계 주입이 필요함, @AutoWired 애노테이션 사용
+    // ac.getBean(MemberRepository.class)가 들어간다고 생각하자
     public MemberServiceImpl(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }

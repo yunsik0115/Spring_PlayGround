@@ -2,7 +2,11 @@ package Yunsik.Core.discount;
 
 import Yunsik.Core.member.Grade;
 import Yunsik.Core.member.Member;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
+@Component
+@Qualifier("fixDiscountPolicy")
 public class FixedDiscountPolicy implements DiscountPolicy {
 
     private final int discountFixAmount = 1000;

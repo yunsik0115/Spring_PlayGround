@@ -1,5 +1,6 @@
 package Yunsik.Core.discount;
 
+import Yunsik.Core.annotation.MainDiscountPolicy;
 import Yunsik.Core.member.Grade;
 import Yunsik.Core.member.Member;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -7,7 +8,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 @Component
-@Primary
+@MainDiscountPolicy
 public class RateDiscountPolicy implements DiscountPolicy{
 
     private final int discountPercent = 10;

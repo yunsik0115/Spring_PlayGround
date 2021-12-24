@@ -3,6 +3,9 @@ package Yunsik.Core.lifecycle;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
 /*public class NetworkClient implements InitializingBean, DisposableBean {
     private String url;
 
@@ -66,13 +69,13 @@ public class NetworkClient {
         System.out.println("close : " + url);
     }
 
-
+    @PostConstruct
     public void init() {
         connect();
         call("초기화 연결 메세지");
     }
 
-
+    @PreDestroy
     public void close() {
         disconnect();
     }

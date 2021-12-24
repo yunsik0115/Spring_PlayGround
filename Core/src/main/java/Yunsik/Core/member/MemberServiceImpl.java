@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 public class MemberServiceImpl implements MemberService{
 
     // private final MemberRepository memberRepository = new MemoryMemberRepository();
+    // final로 설정하면 생성자만 주입가능하게 코드 작성 가능함.
     // 인터페이스 의존 + 구현체 의존 (추상화 + 구체화) 좋지않다... DIP 위반
     // 이런거는 전부 AppConfig에 때려 넣자
 

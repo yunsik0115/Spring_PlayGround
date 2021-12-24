@@ -4,10 +4,12 @@ import Yunsik.Core.discount.DiscountPolicy;
 import Yunsik.Core.member.Member;
 import Yunsik.Core.member.MemberRepository;
 import Yunsik.Core.member.MemoryMemberRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor // final이 붙으면 필수값이 되는데 이를 통해 생성자를 알아서 만들어준다.
 public class OrderServiceImpl implements OrderService{ // 주문 생성 요청시
     // final 무조건 값이 있어야 함.
     private final MemberRepository memberRepository; // = new MemoryMemberRepository();
@@ -40,11 +42,11 @@ public class OrderServiceImpl implements OrderService{ // 주문 생성 요청�
         클라이언트 코드 MemberServiceImpl은 DiscountPolicy의 Interface와 구체 클래스 모두 의존하고 있다. 따라서 의존 관계 변경이 필요하다.
      */
 
-    @Autowired // 생성자 주입 1. 생성자 호출 시점에 딱 한번만 호출되는것이 보장된다. 불변, 필수인 의존관계에 사용된다.
+    /*@Autowired // 생성자 주입 1. 생성자 호출 시점에 딱 한번만 호출되는것이 보장된다. 불변, 필수인 의존관계에 사용된다.
     public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
         this.memberRepository = memberRepository;
         this.discountPolicy = discountPolicy;
-    }
+    } */
     // 어떤 policy가 들어올지 신경 쓰지 않는다. OCP 만족 DIP도 만족
 
     @Override

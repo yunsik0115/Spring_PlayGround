@@ -29,6 +29,7 @@ public class AllBeanTest {
     }
 
     static class DiscountService{
+        // Spring bean에 의해 Dependencies 자동 Injection
         private final Map<String, DiscountPolicy> policyMap;
         private final List<DiscountPolicy> policies;
         public DiscountService(Map<String, DiscountPolicy> policyMap, List<DiscountPolicy> policies){

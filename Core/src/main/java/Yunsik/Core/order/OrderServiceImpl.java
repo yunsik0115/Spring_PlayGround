@@ -44,7 +44,7 @@ public class OrderServiceImpl implements OrderService{ // 주문 생성 요청�
      */
 
     @Autowired // 생성자 주입 1. 생성자 호출 시점에 딱 한번만 호출되는것이 보장된다. 불변, 필수인 의존관계에 사용된다.
-    public OrderServiceImpl(MemberRepository memberRepository, @Qualifier("mainDiscountPolicy") DiscountPolicy discountPolicy) {
+    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
         this.memberRepository = memberRepository;
         this.discountPolicy = discountPolicy;
     }

@@ -13,16 +13,18 @@ import javax.servlet.http.HttpServletRequest;
 @RequiredArgsConstructor
 public class LogDemoController {
     private final LogDemoService logDemoService;
-    private final ObjectProvider<MyLogger> myLoggerProvider;
+    private final MyLogger myLogger;
 
     @RequestMapping("log-demo")
     @ResponseBody
-    public String logDemo(HttpServletRequest request){
+    public String logDemo(HttpServletRequest request) throws InterruptedException {
         String requestURL = request.getRequestURL().toString();
-        MyLogger myLogger = myLoggerProvider.getObject();
+
+        System.out.println("myLogger.getClass() = " + myLogger.getClass());
         myLogger.setRequestURL(requestURL);
 
         myLogger.log("Controller Test");
+        Thread.sleep(1000); // 쌓인다 로그가.
         logDemoService.logic("testId");
         return "OK";
 

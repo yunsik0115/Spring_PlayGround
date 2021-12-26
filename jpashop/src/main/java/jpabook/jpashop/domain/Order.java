@@ -18,14 +18,14 @@ public class Order {
     @Column(name="order_id")
     private Long id;
 
-    @ManyToOne // Order와 Member는 다대일 관계
+    @ManyToOne(fetch = FetchType.LAZY) // Order와 Member는 다대일 관계
     @JoinColumn(name = "member_id") // 맵핑을 무엇으로 할 것인가 Foriegn Key?
     private Member member;
 
     @OneToMany(mappedBy = "order")
     private List<OrderItem> orderItems = new ArrayList<>();
 
-    @OneToOne // Foreign key를 어디에 둘 것인가? -> Access를 많이 하는 곳에 둔다.
+    @OneToOne(fetch = FetchType.LAZY) // Foreign key를 어디에 둘 것인가? -> Access를 많이 하는 곳에 둔다.
     @JoinColumn(name = "delivery_id")
     private Delivery delivery;
 
@@ -34,4 +34,18 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private OrderStatus status; // Order CANCEL 두개  상황
 
+    //==연관관계 메서드==//
+    public void setMember(Member member) {
+        this.member = member;
+        member.getOrders().add(this);
+    }
+
+    public void addOrderItem(OrderItem orderItem) {
+        orderItems.add(orderItem);
+        orderItem.setOrder(this);
+    }
+    public void setDelivery(Delivery delivery) {
+        this.delivery = delivery;
+        delivery.setOrder(this);
+    }
 }

@@ -24,9 +24,9 @@ public class OrderRepository {
     }
 
     public List<Order> findAllByString(OrderSearch orderSearch) {
-        //language=JPAQL
-        String jpql = "select o From Order o join o.member m";
+        String jpql = "select o from Order o join o.member m";
         boolean isFirstCondition = true;
+
         //주문 상태 검색
         if (orderSearch.getOrderStatus() != null) {
             if (isFirstCondition) {
@@ -37,6 +37,7 @@ public class OrderRepository {
             }
             jpql += " o.status = :status";
         }
+
         //회원 이름 검색
         if (StringUtils.hasText(orderSearch.getMemberName())) {
             if (isFirstCondition) {
@@ -57,4 +58,5 @@ public class OrderRepository {
         }
         return query.getResultList();
     }
+
 }

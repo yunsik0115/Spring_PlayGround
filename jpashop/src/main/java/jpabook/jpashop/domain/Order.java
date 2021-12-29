@@ -29,7 +29,7 @@ public class Order {
     @OneToMany(mappedBy = "order")
     private List<OrderItem> orderItems = new ArrayList<>();
 
-    @OneToOne(fetch = FetchType.LAZY) // Foreign key를 어디에 둘 것인가? -> Access를 많이 하는 곳에 둔다.
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL) // Foreign key를 어디에 둘 것인가? -> Access를 많이 하는 곳에 둔다.
     @JoinColumn(name = "delivery_id")
     private Delivery delivery;
 

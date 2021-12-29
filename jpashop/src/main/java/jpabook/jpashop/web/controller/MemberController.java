@@ -46,7 +46,7 @@ public class MemberController {
 
     @GetMapping("/members")
     public String list(Model model){
-        List<Member> members = memberService.findMembers();
+        List<Member> members = memberService.findMembers(); //DTO 변환 권장 API에서 엔티티가 넘어가면 데이터 그대로 노출되고 엔티티 변경시 API 스펙 불안정 야기
         model.addAttribute("members", members);
         return "members/memberList";
     }

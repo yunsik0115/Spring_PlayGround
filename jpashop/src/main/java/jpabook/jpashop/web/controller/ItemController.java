@@ -63,16 +63,24 @@ public class ItemController {
     }
 
     @PostMapping("items/{itemId}/edit")
-    public String updateItem(@ModelAttribute("form") BookForm form, @PathVariable String itemId){
-        Book book = new Book();
-        book.setId(form.getId());
-        book.setName(form.getName()); // Setter를 제거하는게 더 좋은 설계다 Order에서 본것처럼 생성자 메소드 사용
-        book.setPrice(form.getPrice());
-        book.setStockQuantity(form.getStockQuantity());
-        book.setAuthor(form.getAuthor());
-        book.setIsbn(form.getIsbn());
+    public String updateItem(@PathVariable Long itemId, @ModelAttribute("form") BookForm form) {
 
-        itemService.saveItem(book);
+       //Book book = new Book();
+
+        //book.setId(form.getId()); // 새로운 객체이나 id 세팅되어있다. JPA에 들어갔다 나온 놈
+        // JPA가 인식 가능한 ID를 보유한 친구 ==> 이런 친구를 준영속 상태의 객체라고 한다. (근데 JPA의 영속성 컨텍스트의의 관리 대상은 아니다)
+        // "새로운 객체를 만들어서" 기본적으로 JPA가 관리 안함. 아무리 값을 고쳐도 DB 업데이트 쿼리 안 날아감.
+        // 준영속 엔티티를 수정하는 방법? 1) 변경감지 기능의 사용 2) merge(병합)의 사용 머지를 막 쓰는게 아니다!
+
+        // 어설프게 아래 방법처럼 엔티티를 생성하는 방식은 좋지 않다
+        //book.setName(form.getName()); // Setter를 제거하는게 더 좋은 설계다 Order에서 본것처럼 생성자 메소드 사용
+        //book.setPrice(form.getPrice());
+        //book.setStockQuantity(form.getStockQuantity());
+        //book.setAuthor(form.getAuthor());
+        //book.setIsbn(form.getIsbn());
+        //book.setIsbn(form.getIsbn());
+
+        itemService.updateItem(itemId, form.getName(), form.getPrice(), form.getStockQuantity());
         return "redirect:/items";
     }
 

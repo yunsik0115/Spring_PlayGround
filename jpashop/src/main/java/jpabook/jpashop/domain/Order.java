@@ -75,7 +75,7 @@ public class Order {
         if(delivery.getDeliveryStatus() == DeliveryStatus.COMP){
             throw new IllegalStateException("이미 배송완료된 상품은 취소가 불가합니다");
         }
-        this.setStatus(OrderStatus.CANCEL); // 원래는 변경하면 update 쿼리 날려야함. (더티체킹으로 해결)
+        this.setStatus(OrderStatus.CANCEL); // 원래는 변경하면 update 쿼리 날려야함. (더티체킹으로 해결) --- 더티체킹
         for (OrderItem orderItem : orderItems) {
             orderItem.cancel();
         }

@@ -20,7 +20,7 @@ public class JpaMain {
         tx.begin(); // DB Transaction 시작
 
         // 정석 코드
-       try {
+       /*try {
             // code 작성 후
             Member member = new Member();
             member.setId(1L);
@@ -48,6 +48,25 @@ public class JpaMain {
            // findMember.setName("Another One"); // 이 경우 업데이트 쿼리 필요 X 더티체킹
 
         } catch (Exception e){
+            tx.rollback();
+        } finally {
+            em.close();
+        }*/
+
+        try{
+            // 비영속 상태
+            Member member = new Member();
+            member.setId(100L);
+            member.setName("Hello JPA");
+
+            System.out.println("== Before ==");
+            // persist와 동시에 영속상태로 변경 (영속성 컨텍스트에 의해 관리)
+            em.persist(member);
+            System.out.println("== After =="); // SQL이 나가는가? persist만으로는 나가지 않는다!
+
+
+            tx.commit();
+        } catch(Exception e){
             tx.rollback();
         } finally {
             em.close();

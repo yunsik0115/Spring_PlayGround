@@ -3,13 +3,13 @@
              xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
 
-    <persistence-unit name="hello"> <!-- Database 1개당 Persistence Unit 1개 -->
+    <persistence-unit name="hello-new"> <!-- Database 1개당 Persistence Unit 1개 -->
         <properties>
             <!-- 필수 속성 (데이터베이스 접근 정보)-->
             <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
             <property name="javax.persistence.jdbc.user" value="sa"/>
             <property name="javax.persistence.jdbc.password" value=""/>
-            <property name="javax.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/test"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/jpashop"/>
 
 
             <!-- 데이터베이스 방언 (JPA는 특정 데이터베이스에 종속적으로 설계되어있지 않다) -->

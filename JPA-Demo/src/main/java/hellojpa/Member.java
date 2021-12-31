@@ -10,6 +10,16 @@ public class Member {
 
     @Id // JPA에 PK가 무엇인지 알려줘야 함.
     private Long id;
+
+    public Member(){
+        // 기본생성자
+    }
+
+    public Member(Long id, String name) { // JPA는 기본적으로 내부적으로 reflection 등을 사용해서 동적으로 객체 생성을 해야 함 -> 기본생성자가 있어야 한다!
+        this.id = id;
+        this.name = name;
+    }
+
     // @Column(열 이름 설정 가능)
     private String name;
 

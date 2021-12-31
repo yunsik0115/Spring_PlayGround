@@ -53,26 +53,79 @@ public class JpaMain {
             em.close();
         }*/
 
-        try{
+        /*try{
             // 비영속 상태
             Member member = new Member();
-            member.setId(100L);
+            member.setId(101L);
             member.setName("Hello JPA");
 
             System.out.println("== Before ==");
             // persist와 동시에 영속상태로 변경 (영속성 컨텍스트에 의해 관리)
             em.persist(member);
+
             System.out.println("== After =="); // SQL이 나가는가? persist만으로는 나가지 않는다!
 
+            Member findMember = em.find(Member.class, 101L);
+            // 조회용 SQL이 나가는지 관찰 (Select Query 안나감, 1차 캐시에 저장됨)
+            System.out.println("findMember = " + findMember.getId());
+            System.out.println("findMember = " + findMember.getName());
+            // 1차 캐시에 저장된 내용을 조회하기 때문에 조회 쿼리가 날아가지 않는다.
+            // JPA는 첫 조회하는 시점에 1차 캐시에 해당 내용이 저장된다 -> 2회째 조회에는 SQL 쿼리가 날아가지 않는다.
 
-            tx.commit();
+            Member findMember1 = em.find(Member.class, 101L);
+            Member findMember2 = em.find(Member.class, 101L);
+
+            System.out.println(findMember1 == findMember2);
+            // JPA는 자바 컬렉션(주소가 같은 것) 처럼, 영속 엔티티의 동일성을 보장해준다.
+            // 1차 캐시로 반복가능한 읽기 등급의 트랜잭션 격리 수준을 데이터베이스가 아닌 애플리케이션 차원에서 제공 == 같은 트랜잭션 내에서 (==) 비교하면 True가 나온다
+
+            tx.commit(); // 이 순간 모든 SQL쿼리가 날아감 (더티체킹 제외), 그 전까지는 모든 persist마다 JPA에 계속 내용이 쌓인다.
+        } catch(Exception e){
+            tx.rollback();
+        } finally {
+            em.close();
+        }*/
+
+
+        /*try{
+            // 영속
+            Member member1 = new Member(150L, "A");
+            Member member2 = new Member(160L, "A");
+
+            em.persist(member1);
+            em.persist(member2);
+            // 쿼리와 엔티티가 쌓인다 여기서 버퍼링이라는 기능을 사용할 수 있다.
+            // persist 때마다 쿼리 날리면 최적화를 잘 못한다(할 겨를이 없다), JDBC Batch (persistence.xml 참고)
+
+            System.out.println("================================");
+
+
+            tx.commit(); // 이때 쿼리가 DB로 전송
+
         } catch(Exception e){
             tx.rollback();
         } finally {
             em.close();
         }
+        */
 
+        // 변경감지
+        try{
+            // 영속
+            Member member = em.find(Member.class, 150L);
+            member.setName("ZZZZZZZZ");
 
+            // em.persist(member); 이미 JPA상에 영속상태로 등록이 되어있기 때문에 필요 없다. 쓰면 안된다(아무 이득이 없다)
+            // 알아서 찾아와서 Data를 변경한다.
+            System.out.println("===============");
+
+            tx.commit();
+
+        } catch(Exception e){
+            tx.rollback();
+        } finally {
+            em.close();
+        }
 
         // emf를 통해 닫는다.
         emf.close();

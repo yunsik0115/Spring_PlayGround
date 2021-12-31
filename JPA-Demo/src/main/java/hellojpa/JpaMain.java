@@ -110,10 +110,13 @@ public class JpaMain {
         */
 
         // 변경감지
-        try{
+        /*try{
             // 영속
             Member member = em.find(Member.class, 150L);
-            member.setName("ZZZZZZ");
+            member.setName("AAA");
+
+            em.detach(member); // 영속성 컨텍스트에서 더 이상 관리하지 않는다. 더티체킹 범위에서 빠짐(준영속 상태로 변경)
+            // detach(특정 엔티티), clear() - 영속성 컨텍스트 전체 관리해제, close - 영속성 컨텍스트를 닫아버린다(종료)
 
             // em.persist(member); 이미 JPA상에 영속상태로 등록이 되어있기 때문에 필요 없다. 쓰면 안된다(아무 이득이 없다)
             // 알아서 찾아와서 Data를 변경한다.
@@ -123,6 +126,14 @@ public class JpaMain {
 
             tx.commit();
 
+        } catch(Exception e){
+            tx.rollback();
+        } finally {
+            em.close();
+        }*/
+
+        try{
+            tx.commit();
         } catch(Exception e){
             tx.rollback();
         } finally {

@@ -113,11 +113,13 @@ public class JpaMain {
         try{
             // 영속
             Member member = em.find(Member.class, 150L);
-            member.setName("ZZZZZZZZ");
+            member.setName("ZZZZZZ");
 
             // em.persist(member); 이미 JPA상에 영속상태로 등록이 되어있기 때문에 필요 없다. 쓰면 안된다(아무 이득이 없다)
             // 알아서 찾아와서 Data를 변경한다.
+            em.flush(); // 커밋 전에 강제로 플러시를 통해 SQL 쿼리 전송 가능, 1차 캐시는 그대로 유지(쓰기 지연 SQL 저장소만 영향)
             System.out.println("===============");
+
 
             tx.commit();
 

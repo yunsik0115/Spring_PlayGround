@@ -157,10 +157,15 @@ public class JpaMain {
             em.persist(member);
 
             // flush와 clear를 통해 영속성 컨텍스트 초기화해서 SQL문도 직접 확인할 수 있다는 것을 기억
+            em.flush();
+            em.clear();
 
             Member findMember = em.find(Member.class, member.getId());
-            Team findTeam = findMember.getTeam();
-            System.out.println("findTeam = " + findTeam.getName());
+            List<Member> members = findMember.getTeam().getMembers(); // 반대 방향으로도 객체 그래프 탐색 가능(가능하면 단방향이 좋지만...)
+            for (Member m : members) {
+                System.out.println("members = " + m.getUsername());
+            }
+
 
             tx.commit();
         } catch(Exception e){

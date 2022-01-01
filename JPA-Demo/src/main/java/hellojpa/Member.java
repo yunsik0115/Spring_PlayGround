@@ -1,9 +1,6 @@
 package hellojpa;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Member {
@@ -14,8 +11,21 @@ public class Member {
     @Column(name = "USERNAME")
     private String username;
 
-    @Column(name="TEAM_ID")
-    private Long teamId;
+    //@Column(name="TEAM_ID")
+    //private Long teamId;
+
+    // DB 관점으로 Annotation 작성
+    @ManyToOne // Member 입장에서는 Many, Team 입장에서는 One
+    @JoinColumn(name = "TEAM_ID") // TEAM_ID와 JOIN MAPPING이 끝남.
+    private Team team;
+
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
+    }
 
     public Long getId() {
         return id;
@@ -33,11 +43,4 @@ public class Member {
         this.username = username;
     }
 
-    public Long getTeamId() {
-        return teamId;
-    }
-
-    public void setTeamId(Long teamId) {
-        this.teamId = teamId;
-    }
 }

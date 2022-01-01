@@ -140,6 +140,7 @@ public class JpaMain {
             Member member = new Member();
             member.setUsername("member1");
 
+            /* 객체 지향성 JPA 적용 전
             member.setTeamId(team.getId()); // ID를 어떻게 얻지? (PK값을 얻고 영속상태가 됨)
             // 근데 이건 좀 객체지향스럽지 않다.
 
@@ -148,7 +149,18 @@ public class JpaMain {
             Member findMember = em.find(Member.class, member.getId());
             Long findTeamId = findMember.getTeamId();
             Team findTeam = em.find(Team.class, findTeamId); // JPA에 이런식으로 계--속 물어봐야함. 연관관계가 없기 때문
-            // --> 객체지향스럽지 않다! 협력관계를 만들 수가 없다....
+            // --> 객체지향스럽지 않다! 협력관계를 만들 수가 없다.... */
+
+
+            // JPA 객체 지향 적용 후
+            member.setTeam(team); // 알아서 JPA에서 PK값 꺼내서 Foreign키 값으로 적용함
+            em.persist(member);
+
+            // flush와 clear를 통해 영속성 컨텍스트 초기화해서 SQL문도 직접 확인할 수 있다는 것을 기억
+
+            Member findMember = em.find(Member.class, member.getId());
+            Team findTeam = findMember.getTeam();
+            System.out.println("findTeam = " + findTeam.getName());
 
             tx.commit();
         } catch(Exception e){

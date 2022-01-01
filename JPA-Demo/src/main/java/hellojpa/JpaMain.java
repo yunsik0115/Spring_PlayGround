@@ -133,6 +133,23 @@ public class JpaMain {
         }*/
 
         try{
+            Team team = new Team();
+            team.setName("TeamA");
+            em.persist(team);
+
+            Member member = new Member();
+            member.setUsername("member1");
+
+            member.setTeamId(team.getId()); // ID를 어떻게 얻지? (PK값을 얻고 영속상태가 됨)
+            // 근데 이건 좀 객체지향스럽지 않다.
+
+            em.persist(member);
+
+            Member findMember = em.find(Member.class, member.getId());
+            Long findTeamId = findMember.getTeamId();
+            Team findTeam = em.find(Team.class, findTeamId); // JPA에 이런식으로 계--속 물어봐야함. 연관관계가 없기 때문
+            // --> 객체지향스럽지 않다! 협력관계를 만들 수가 없다....
+
             tx.commit();
         } catch(Exception e){
             tx.rollback();

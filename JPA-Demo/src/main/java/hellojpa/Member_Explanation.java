@@ -1,13 +1,13 @@
-package hellojpa;
+/* package hellojpa; 처음 한 예제라 주석처리
 
 import javax.persistence.*;
 import java.util.Date;
 
-@Entity // 다른 패키지에 같은 이름에 클래스가 있는 경우 JPA 내에서는 name 속성을 사용해서 구분한다
+// 다른 패키지에 같은 이름에 클래스가 있는 경우 JPA 내에서는 name 속성을 사용해서 구분한다
 // JPA가 로딩될 때 JPA 관리대상임을 인식시킴. (DATABASE 테이블 맵핑 대상이다!)
 // @Table(name = "USER") DB의 테이블 이름을 설정할 수 있다
-@SequenceGenerator(name="member_seq_generator", sequenceName = "member_seq",
-initialValue = 1, allocationSize = 50)
+// @SequenceGenerator(name="member_seq_generator", sequenceName = "member_seq",
+// initialValue = 1, allocationSize = 50)
 public class Member_Explanation {
 
     @Id // 기본키 매핑 (@Id, @Generated Value)
@@ -38,7 +38,7 @@ public class Member_Explanation {
     AUTO:
      */
 
-    @Column// (name = "name") // DB Column 명 지정
+    /* @Column// (name = "name") // DB Column 명 지정
     private String username;
 
     /*
@@ -51,7 +51,7 @@ public class Member_Explanation {
     scale은 소수의 자리수다. float, double은 적용되지 않는다. 아주 큰 숫자나 정밀한 소수 다룰때 사용
     */
 
-    private Integer age;
+    /* private Integer age;
 
     @Enumerated(EnumType.STRING)
     private RoleType roleType;
@@ -61,7 +61,7 @@ public class Member_Explanation {
     0 - 학생 1 - 교직원 2 - 선생님 으로 되는 경우 모든 1번이었던 선생님들이 새로운 DB에서는 전부 교직원으로 인식됨(굉장히 위험함)
      */
 
-    @Temporal(TemporalType.TIMESTAMP) // Temporal - 날짜 타입
+    /*@Temporal(TemporalType.TIMESTAMP) // Temporal - 날짜 타입
     private Date createdDate;
     // 자바는 기본적으로 타입이 하나(날짜 + 시간)인데, DB는 날짜, 시간, 날짜 + 시간을 구분하기 때문에 매핑 정보를 주어야 한다.
 
@@ -81,4 +81,4 @@ public class Member_Explanation {
     }
 
 //Getter, Setter…
-}
+} */

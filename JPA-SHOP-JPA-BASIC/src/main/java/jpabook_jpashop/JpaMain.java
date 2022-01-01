@@ -1,5 +1,7 @@
 package jpabook_jpashop;
 
+import jpabook_jpashop.domain.Order;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;

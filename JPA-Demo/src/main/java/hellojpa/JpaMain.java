@@ -132,7 +132,7 @@ public class JpaMain {
             em.close();
         }*/
 
-        try{
+        /* try{
             Team team = new Team();
             team.setName("TeamA");
             em.persist(team);
@@ -149,11 +149,12 @@ public class JpaMain {
             Member findMember = em.find(Member.class, member.getId());
             Long findTeamId = findMember.getTeamId();
             Team findTeam = em.find(Team.class, findTeamId); // JPA에 이런식으로 계--속 물어봐야함. 연관관계가 없기 때문
-            // --> 객체지향스럽지 않다! 협력관계를 만들 수가 없다.... */
+            // --> 객체지향스럽지 않다! 협력관계를 만들 수가 없다....
 
 
             // JPA 객체 지향 적용 후
-            member.setTeam(team); // 알아서 JPA에서 PK값 꺼내서 Foreign키 값으로 적용함
+            member.setTeam(team);
+            // 알아서 JPA에서 PK값 꺼내서 Foreign키 값으로 적용함
             em.persist(member);
 
             // flush와 clear를 통해 영속성 컨텍스트 초기화해서 SQL문도 직접 확인할 수 있다는 것을 기억
@@ -171,6 +172,25 @@ public class JpaMain {
         } catch(Exception e){
             tx.rollback();
         } finally {
+            em.close();
+        } */
+
+        try{
+            Member member = new Member();
+            member.setUsername("member1");
+            em.persist(member);
+
+            Team team = new Team();
+            team.setName("teamA");
+            team.getMembers().add(member); // team 테이블에 업데이트가 안되는데...? Member Table에 있는데? -> 그러면 Member를 업데이트 쳐줘야함.
+            // 외래키 업데이트
+            // 객체와 테이블 차이로 반대편 테이블의 외래키를 관리해야하는 특이한 구조. + JoinColumn 안하면 JoinTable 방식으로 중간에 테이블 하나 추가함.
+            em.persist(team);
+
+
+        } catch (Exception e){
+            tx.rollback();
+        } finally{
             em.close();
         }
 

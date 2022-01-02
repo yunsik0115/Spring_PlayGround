@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Member {
+public class Member extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.AUTO) // 기본값이라 생략해도 됨
     @Column(name = "MEMBER_ID")
@@ -15,7 +15,7 @@ public class Member {
     private String street;
     private String zipcode;
 
-    @OneToMany(mappedBy = "MEMBER_ID")
+    @OneToMany(mappedBy = "member")
     private List<Order> orderList = new ArrayList<>();
 
     public Long getId() {

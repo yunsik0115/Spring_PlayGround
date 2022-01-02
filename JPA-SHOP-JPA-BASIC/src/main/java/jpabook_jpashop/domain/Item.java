@@ -6,7 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Item {
+// Item만 단독으로 테이블에 저장할 일이 있는가? -> 없다고 가정하고 추상클래스
+@Inheritance(strategy = InheritanceType.JOINED) // JOIN전략에서는 ID가 같아야 좋다
+@DiscriminatorColumn(name = "DTYPE")
+public abstract class Item extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ITEM_ID")

@@ -176,7 +176,7 @@ public class JpaMain {
         } */
 
         try{
-            Member member = new Member();
+            /*Member member = new Member();
             member.setUsername("member1");
             em.persist(member);
 
@@ -185,8 +185,21 @@ public class JpaMain {
             team.getMembers().add(member); // team 테이블에 업데이트가 안되는데...? Member Table에 있는데? -> 그러면 Member를 업데이트 쳐줘야함.
             // 외래키 업데이트
             // 객체와 테이블 차이로 반대편 테이블의 외래키를 관리해야하는 특이한 구조. + JoinColumn 안하면 JoinTable 방식으로 중간에 테이블 하나 추가함.
-            em.persist(team);
+            em.persist(team);*/
 
+            Movie movie = new Movie();
+            movie.setDirector("aaaa");
+            movie.setActor("bbbb");
+            movie.setName("바람과함께사라지다");
+            movie.setPrice(10000);
+
+            em.persist(movie);
+            em.flush();
+            em.clear();
+
+            Movie findMovie = em.find(Movie.class, movie.getId()); // Join으로 가져온다
+            System.out.println("findMovie = " + findMovie);
+            tx.commit();
 
         } catch (Exception e){
             tx.rollback();

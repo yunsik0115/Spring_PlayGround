@@ -22,7 +22,7 @@
             <property name="hibernate.use_sql_comments" value="true"/>
 
 
-            <property name="hibernate.hbm2ddl.auto" value="create-drop" />
+            <property name="hibernate.hbm2ddl.auto" value="create" />
 
             <!-- 애플리케이션 로딩 시점에 자동으로 DB를 생성해준다, 운영서버에서는 사용하지 않거나 적절히 다듬은 상태에서 사용한다 validate, none, (update, create-drop, create) ==> 운영장비에는 사용 금지
             create, update - 개발 초기단계

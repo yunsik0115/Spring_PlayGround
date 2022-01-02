@@ -28,6 +28,11 @@ public class Order {
     @Enumerated(EnumType.STRING) // 반드시 String 사용!
     private OrderStatus orderStatus;
 
+    @OneToOne
+    @JoinColumn(name = "DELIVERY_ID")
+    private Delivery delivery;
+
+
     public Long getId() {
         return id;
     }

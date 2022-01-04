@@ -203,7 +203,7 @@ public class JpaMain {
             System.out.println("findMovie = " + findMovie);
             tx.commit(); */
 
-            Member member1 = new Member();
+            /*Member member1 = new Member();
             member1.setUsername("member1");
             em.persist(member1);
 
@@ -234,6 +234,30 @@ public class JpaMain {
             System.out.println("findMember.getId() = " + findMember.getId()); // Reference를 찾을 때 이미 getId를 (파라미터로) 사용했기 때문에 쿼리가 나가지 않는다.
             System.out.println("findMember.getId() = " + findMember.getUsername()); // 근데 이때는 나간다? username은 DB에 있다. Reference->가짜를 가져옴.
                */
+
+            Team team = new Team();
+            team.setName("teamA");
+            em.persist(team);
+
+            Member member1 = new Member();
+            member1.setUsername("member1");
+            member1.setTeam(team);
+            em.persist(member1);
+
+
+
+            em.flush();
+            em.clear();
+
+            Member m = em.find(Member.class, member1.getId());
+            System.out.println("=======================================");
+            System.out.println("m = " + m.getTeam().getClass());
+            System.out.println("=======================================");
+
+            System.out.println("=======================================");
+            m.getTeam().getName();
+            System.out.println("=======================================");
+            tx.commit();
         } catch (Exception e){
             tx.rollback();
         } finally{

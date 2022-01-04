@@ -17,11 +17,31 @@ public class Member extends BaseEntity {
     //@Column(name="TEAM_ID")
     //private Long teamId;
 
+    @ManyToOne(fetch = FetchType.LAZY) // Proxy 객체로 조회하여, 직접 호출하기 전까지는 가짜 객체로 대체
+    @JoinColumn
+    private Team team;
+
     @OneToMany(mappedBy = "member")
     private List<MemberProduct> products = new ArrayList<>();
 
     public Long getId() {
         return id;
+    }
+
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
+    }
+
+    public List<MemberProduct> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<MemberProduct> products) {
+        this.products = products;
     }
 
     public void setId(Long id) {

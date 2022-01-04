@@ -271,6 +271,19 @@ public class JpaMain {
             // Parent 중심으로 개발중인데 Child 알아서 persist 해주면 안될까...? 이 때 쓰는게 바로 cascade이다!
             // Parent를 perist할때 Collection안에 있는 친구들을 모두 Persist 날려주겠다! CASCADE.ALL
 
+            em.flush();
+            em.clear();
+
+            Parent findParent = em.find(Parent.class, parent.getId());
+            //findParent.getChildList().remove(0);
+
+            // Orphan Removal에 의해 List에서 사라진 Child Entity에 대한 Delete Query가 자동으로 생성 전송됨.
+            // 참조된 엔티티는 다른곳에서 참조하지 않는 고아 객체로 보고 삭제한다.
+            // 참조하는 곳이 한곳일때 사용하며 특정 엔티티가 개인 소유할 때 사용한다
+            // 개념적으로 부모 제거시 자식은 고아가 된다, 활성화 하면 부모를 제거할 때 자식은 자동으로 제거됨.
+            // CascadeType.REMOVE 처럼 동작하게 됨.
+            em.remove(findParent); // orphan remove에 의해 List에 있는 child들 모두 사라짐
+
             tx.commit();
         } catch (Exception e){
             tx.rollback();

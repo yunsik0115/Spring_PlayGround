@@ -20,7 +20,8 @@ public class Order extends BaseEntity {
     @JoinColumn(name = "MEMBER_ID")
     private Member member; // 설계할땐 단방향, 개발하다 필요시에만 양방향 사용
 
-    @OneToMany(mappedBy = "order")
+    // 주문 생성시 리스트 생성 생명주기가 같다.
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> orderItems = new ArrayList<>();
 
     private LocalDateTime orderDate;
@@ -28,7 +29,9 @@ public class Order extends BaseEntity {
     @Enumerated(EnumType.STRING) // 반드시 String 사용!
     private OrderStatus orderStatus;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    // 주문 생성시 딜리버리 생성 - 주문 삭제시 딜리버리도 삭제됨 생명주기가 거의 같다. (cascade)
+    // Depend on Business Requirements.
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "DELIVERY_ID")
     private Delivery delivery;
 

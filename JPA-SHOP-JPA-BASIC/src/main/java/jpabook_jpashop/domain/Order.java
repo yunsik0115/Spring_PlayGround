@@ -16,7 +16,7 @@ public class Order extends BaseEntity {
 //    @Column(name = "MEMBER_ID")
 //    private Long memberId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MEMBER_ID")
     private Member member; // 설계할땐 단방향, 개발하다 필요시에만 양방향 사용
 
@@ -28,7 +28,7 @@ public class Order extends BaseEntity {
     @Enumerated(EnumType.STRING) // 반드시 String 사용!
     private OrderStatus orderStatus;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "DELIVERY_ID")
     private Delivery delivery;
 

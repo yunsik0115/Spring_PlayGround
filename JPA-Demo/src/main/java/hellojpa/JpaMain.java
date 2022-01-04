@@ -1,5 +1,7 @@
 package hellojpa;
 
+import org.hibernate.Hibernate;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -187,7 +189,7 @@ public class JpaMain {
             // 객체와 테이블 차이로 반대편 테이블의 외래키를 관리해야하는 특이한 구조. + JoinColumn 안하면 JoinTable 방식으로 중간에 테이블 하나 추가함.
             em.persist(team);*/
 
-            Movie movie = new Movie();
+            /*Movie movie = new Movie();
             movie.setDirector("aaaa");
             movie.setActor("bbbb");
             movie.setName("바람과함께사라지다");
@@ -199,8 +201,39 @@ public class JpaMain {
 
             Movie findMovie = em.find(Movie.class, movie.getId()); // Join으로 가져온다
             System.out.println("findMovie = " + findMovie);
-            tx.commit();
+            tx.commit(); */
 
+            Member member1 = new Member();
+            member1.setUsername("member1");
+            em.persist(member1);
+
+            Member member2 = new Member();
+            member2.setUsername("member2");
+            em.persist(member2);
+
+
+            em.flush();
+            em.clear(); // 영속성 컨텍스트 내용 없어짐
+
+
+            //Member m1 = em.find(Member.class, member1.getId());
+            Member m2 = em.getReference(Member.class, member2.getId());
+            //System.out.println("m1 == m2 : " + (m1.getClass()==m2.getClass()));
+            System.out.println("isloaded? = " + emf.getPersistenceUnitUtil().isLoaded(m2)); // proxy 초기화 됐는지 확인
+            m2.getUsername(); // proxy 강제 초기화 방법 이건 무식한 방법
+            Hibernate.initialize(m2); // proxy 강제 초기화(좀 더 엘레강스한 방법, JPA 스펙상에는 없다. 무식한 방법을 쓰면 됨)
+            System.out.println("isloaded? = " + emf.getPersistenceUnitUtil().isLoaded(m2));
+            // Type 비교시 Proxy로 넘어올지, 실제로 넘어올지 모른다 (Class) instanceof를 통해 비교해야 옳다.
+            // 엔티티가 영속성 컨텍스트에 올라가 있는 상태에서 getReference로 호출할 경우, proxy클래스가 올라오지 않는다.
+
+            //Member findMember = em.getReference(Member.class, member.getId());
+
+            /*select query가 나가지 않는다?
+            System.out.println("findMember = " + findMember.getClass()); // proxy class -> 가짜 클래스 findMember = class hellojpa.Member$HibernateProxy$2P7Xa975
+            DB 조회를 미루는 가짜 엔티티 객체 조회
+            System.out.println("findMember.getId() = " + findMember.getId()); // Reference를 찾을 때 이미 getId를 (파라미터로) 사용했기 때문에 쿼리가 나가지 않는다.
+            System.out.println("findMember.getId() = " + findMember.getUsername()); // 근데 이때는 나간다? username은 DB에 있다. Reference->가짜를 가져옴.
+               */
         } catch (Exception e){
             tx.rollback();
         } finally{

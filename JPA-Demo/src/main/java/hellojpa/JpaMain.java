@@ -235,7 +235,7 @@ public class JpaMain {
             System.out.println("findMember.getId() = " + findMember.getUsername()); // 근데 이때는 나간다? username은 DB에 있다. Reference->가짜를 가져옴.
                */
 
-            Team team = new Team();
+            /*Team team = new Team();
             team.setName("teamA");
             em.persist(team);
 
@@ -256,7 +256,21 @@ public class JpaMain {
 
             System.out.println("=======================================");
             m.getTeam().getName();
-            System.out.println("=======================================");
+            System.out.println("=======================================");*/
+
+            Parent parent = new Parent();
+            Child child1 = new Child();
+            Child child2 = new Child();
+
+            parent.addChild(child1);
+            parent.addChild(child2);
+
+            em.persist(parent);
+            //em.persist(child1);
+            // em.persist(child2); // em.persist 3번 호출해줘야 한다.
+            // Parent 중심으로 개발중인데 Child 알아서 persist 해주면 안될까...? 이 때 쓰는게 바로 cascade이다!
+            // Parent를 perist할때 Collection안에 있는 친구들을 모두 Persist 날려주겠다! CASCADE.ALL
+
             tx.commit();
         } catch (Exception e){
             tx.rollback();

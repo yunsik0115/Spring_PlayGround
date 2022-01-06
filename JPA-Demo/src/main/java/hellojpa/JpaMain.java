@@ -301,7 +301,7 @@ public class JpaMain {
             // 장점 --> 자바 코드로 쳐서 오타나면 컴파일 오류를 내보냄, 동적쿼리를 짜기에 JPQL보다 훨씬 편리함.
 
             String username = "asdfasdf";
-            if(username != null){
+            if( username != null){
                 cq = cq.where(cb.equal(m.get("username"),"kim"));
             }
             List<Member> resultList2 = em.createQuery(cq).getResultList();  // SQL 어떻게 돌아가는지 모호하고 복잡해서 실용성이 없다 (유지보수가 어렵다)

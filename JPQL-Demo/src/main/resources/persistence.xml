@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.2"
+             xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+
+    <persistence-unit name="hello"> <!-- Database 1개당 Persistence Unit 1개 -->
+        <properties>
+            <!-- 필수 속성 (데이터베이스 접근 정보)-->
+            <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
+            <property name="javax.persistence.jdbc.user" value="sa"/>
+            <property name="javax.persistence.jdbc.password" value=""/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/test"/>
+
+
+            <!-- 데이터베이스 방언 (JPA는 특정 데이터베이스에 종속적으로 설계되어있지 않다) -->
+            <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
+            <!-- DB 교체시 페이징 다 바꿔줘야하는데 JPA는 편리하게 관리해 줌 -->
+
+            <!-- 옵션 -->
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="hibernate.use_sql_comments" value="true"/>
+
+
+            <property name="hibernate.hbm2ddl.auto" value="create-drop" />
+
+            <!-- 애플리케이션 로딩 시점에 자동으로 DB를 생성해준다, 운영서버에서는 사용하지 않거나 적절히 다듬은 상태에서 사용한다 validate, none, (update, create-drop, create) ==> 운영장비에는 사용 금지
+            create, update - 개발 초기단계
+             update, validate - 테스트 서버(도 가급적이면 쓰지 말자)
+             validate, none - 스테이징, 운영서버(는 특히 그냥 전부, 쓰지 말자) -->
+
+
+            <!-- <property name="hibernate.jdbc.batch_size" value="10" /> 사이즈 만큼 모아서 한꺼번에 DB에 쿼리를 보낸다. -->
+        </properties>
+    </persistence-unit>
+</persistence>

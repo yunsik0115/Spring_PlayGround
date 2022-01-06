@@ -18,12 +18,28 @@ public class JpaMain {
             // GROUP BY ORDER HAVING 모두 일반 SQL과 동일
             // TYPEQUERY - 반환 타입이 명확할때, Query - 그렇지 않을때
 
-            Member member = new Member();
-            member.setUsername("Mason");
-            member.setAge(10);
-            em.persist(member);
 
-            List<Member> result1 = em.createQuery("select m from Member m", Member.class).getResultList();
+            for(int i = 0; i<100; i++){
+                Member member = new Member();
+                member.setUsername("Mason");
+                member.setAge(i);
+                em.persist(member);
+
+            }
+
+
+            List<Member> resultList = em.createQuery("select m from Member m order by m.age desc", Member.class)
+                    .setFirstResult(1) // offset limit
+                    .setMaxResults(10)
+                    .getResultList();
+
+            System.out.println("size :" + resultList.size());
+            for (Member member1 : resultList) {
+                System.out.println("member1 = " + member1);
+                
+            }
+
+            /*List<Member> result1 = em.createQuery("select m from Member m", Member.class).getResultList();
             // Result -> 과연 영속성 컨텍스트에 의해 관리가 되는가? -> 리스트에 있는 모든 내역들 다 관리 대상으로 들어감
 
             List<Member> result2 = em.createQuery("select m.team from Member m", Member.class).getResultList();
@@ -43,13 +59,13 @@ public class JpaMain {
             System.out.println("resultlist = " + resultlist[0]);
             System.out.println("resultlist = " + resultlist[1]);
 
-            /* new  명령어로 조회 多
-            * 1) 단순 값을 DTO로 바로 조회, 패키지명을 포함한 전체 클래스명 입력, 순서와 타입이 일치하는 생성자의 필요 */
+            new  명령어로 조회 多
+            1) 단순 값을 DTO로 바로 조회, 패키지명을 포함한 전체 클래스명 입력, 순서와 타입이 일치하는 생성자의 필요
 
             List<MemberDTO> resultList1 = em.createQuery("select new jpql.MemberDTO(m.username, m.age) from Member m").getResultList();
             MemberDTO memberDTO = resultList1.get(0);
             System.out.println("memberDTO = " + memberDTO.getUsername());
-            System.out.println("memberDTO = " + memberDTO.getAge());
+            System.out.println("memberDTO = " + memberDTO.getAge()); */
 
 
 

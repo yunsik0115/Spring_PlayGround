@@ -39,4 +39,14 @@ public class Member {
     public void setAge(int age) {
         this.age = age;
     }
+
+    @Override
+    public String toString() {
+        return "Member{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", age=" + age +
+                '}';
+        // 양방향시 순환 호출 유의하자 (지워줘야한다)
+    }
 }

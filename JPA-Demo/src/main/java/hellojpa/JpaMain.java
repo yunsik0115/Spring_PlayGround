@@ -6,6 +6,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.List;
 
 public class JpaMain {
@@ -258,7 +261,7 @@ public class JpaMain {
             m.getTeam().getName();
             System.out.println("=======================================");*/
 
-            Parent parent = new Parent();
+            /*Parent parent = new Parent();
             Child child1 = new Child();
             Child child2 = new Child();
 
@@ -282,7 +285,33 @@ public class JpaMain {
             // 참조하는 곳이 한곳일때 사용하며 특정 엔티티가 개인 소유할 때 사용한다
             // 개념적으로 부모 제거시 자식은 고아가 된다, 활성화 하면 부모를 제거할 때 자식은 자동으로 제거됨.
             // CascadeType.REMOVE 처럼 동작하게 됨.
-            em.remove(findParent); // orphan remove에 의해 List에 있는 child들 모두 사라짐
+            em.remove(findParent); // orphan remove에 의해 List에 있는 child들 모두 사라짐 */
+
+            List<Member> result = em.createQuery("select m From Member as M where m.username like '%kim%'", Member.class).getResultList();
+            // JPQL Query To Object(Not Table)
+
+
+            // 동적 쿼리 대신 Criteria
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery<Member> query = cb.createQuery(Member.class);
+
+            Root<Member> m = query.from(Member.class);
+            CriteriaQuery<Member> cq = query.select(m).where(cb.equal(m.get("username"),"kim"));
+            List<Member> resultList = em.createQuery(cq).getResultList();
+            // 장점 --> 자바 코드로 쳐서 오타나면 컴파일 오류를 내보냄, 동적쿼리를 짜기에 JPQL보다 훨씬 편리함.
+
+            String username = "asdfasdf";
+            if(username != null){
+                cq = cq.where(cb.equal(m.get("username"),"kim"));
+            }
+            List<Member> resultList2 = em.createQuery(cq).getResultList();  // SQL 어떻게 돌아가는지 모호하고 복잡해서 실용성이 없다 (유지보수가 어렵다)
+            // QueryDSL 사용을 권장한다.
+
+            String sql = "select MEMBER_ID, city, street, zipcode from MEMBER";
+            List resultList3 = em.createNativeQuery(sql, Member.class).getResultList();
+            // Native Query를 날릴 수 있다 (JDBCTemplate를 사용할 수도 있다)
+            // flush는 commit할때와 query(Native 포함) 날아갈때 동작함. JDBC, SpringTemplate 사용 직전에 따로 flush를 해줘야 한다.
+
 
             tx.commit();
         } catch (Exception e){

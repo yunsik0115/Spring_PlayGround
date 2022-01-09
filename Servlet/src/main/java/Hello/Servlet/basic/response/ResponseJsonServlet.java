@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "requestBodyJsonServlet", urlPatterns = "/request-body-json")
+@WebServlet(name = "responseBodyJsonServlet", urlPatterns = "/request-body-json")
 public class ResponseJsonServlet extends HttpServlet {
 
     private ObjectMapper objectMapper = new ObjectMapper();

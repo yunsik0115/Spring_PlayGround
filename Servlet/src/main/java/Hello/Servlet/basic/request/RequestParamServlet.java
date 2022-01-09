@@ -23,6 +23,7 @@ public class RequestParamServlet extends HttpServlet {
         // parameter에 대한 username은 하나고 값이 여러 개인 경우 getParameterValues로 꺼내면 된다.
         // 단 하나의 값일때만 getParameter를 사용한다 (근데 대부분 단일파라미터를 사용한다)
         // paramName = Key getParameter(paramName) = value
+        // GET Pameter와 Form Parameter 모두 지원한다.
         System.out.println("[전체 파라미터 조회] - end");
 
         System.out.println("[단일 파라미터 조회] - start");

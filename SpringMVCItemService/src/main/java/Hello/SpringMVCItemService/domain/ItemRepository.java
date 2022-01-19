@@ -32,7 +32,7 @@ public class ItemRepository {
     // 정석은 ItemParameterDTO를 객체로 만들고 파라미터를 3개 넣어놓는게 맞음.
     public void update(Long itemId, Item updateParam){
         Item findItem = findById(itemId);
-        findItem.setName(updateParam.getName());
+        findItem.setItemName(updateParam.getItemName());
         findItem.setPrice(updateParam.getPrice());
         findItem.setQuantity(updateParam.getQuantity());
     }

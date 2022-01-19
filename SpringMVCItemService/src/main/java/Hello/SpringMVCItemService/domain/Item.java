@@ -7,7 +7,7 @@ import lombok.Data;
 @Data // 현재는 예제이니 Data를 사용함.
 public class Item {
     private Long id;
-    private String name;
+    private String itemName;
     private Integer price; // price가 null일때도 있다고 가정하는 것
     private Integer quantity; // quantity가 null일때도 있다고 가정하는 것
 
@@ -17,7 +17,7 @@ public class Item {
     }
 
     public Item(String name, Integer price, Integer quantity) {
-        this.name = name;
+        this.itemName = name;
         this.price = price;
         this.quantity = quantity;
     }
